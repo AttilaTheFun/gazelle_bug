@@ -1,0 +1,24 @@
+"""
+Bazel Modules
+"""
+
+# module
+
+module(
+    name = "app_engine",
+    version = "0.0.0",
+)
+
+# rules_go
+
+bazel_dep(name = "rules_go", version = "0.44.2", repo_name = "io_bazel_rules_go")
+
+# gazelle
+
+bazel_dep(name = "gazelle", version = "0.35.0", repo_name = "bazel_gazelle")
+
+go_deps_extension = use_extension("@bazel_gazelle//:extensions.bzl", "go_deps")
+go_deps_extension.from_file(
+    go_mod = "//:go.mod",
+)
+use_repo(go_deps_extension, "com_github_infobloxopen_atlas_app_toolkit")
